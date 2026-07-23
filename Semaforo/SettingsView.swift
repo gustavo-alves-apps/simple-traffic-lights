@@ -34,6 +34,7 @@ final class SettingsStore: ObservableObject {
 struct SettingsView: View {
     @ObservedObject var settings: SettingsStore
     @Binding var isPlaying: Bool
+    @StateObject private var tipStore = TipStore()
 
     var body: some View {
         NavigationStack {
@@ -61,16 +62,46 @@ struct SettingsView: View {
                     }
                     .pickerStyle(.segmented)
                 }
+
+                Section("Support") {
+                    ForEach(tipStore.products) { product in
+                        Button {
+                            Task { await tipStore.purchase(product) }
+                        } label: {
+                            HStack {
+                                Text(product.displayName)
+                                Spacer()
+                                Text(product.displayPrice)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    }
+                }
             }
-            .navigationTitle("Traffic Light")
+            .navigationTitle("Simple Traffic Lights")
             .safeAreaInset(edge: .bottom) {
-                Button("Play") {
+                Button {
                     isPlaying = true
+                } label: {
+                    Text("Play")
+                        .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
+                .buttonBorderShape(.capsule)
                 .controlSize(.large)
-                .frame(maxWidth: .infinity)
                 .padding()
+            }
+            .task {
+                await tipStore.load()
+            }
+            .alert(
+                tipStore.alertMessage ?? "",
+                isPresented: Binding(
+                    get: { tipStore.alertMessage != nil },
+                    set: { if !$0 { tipStore.alertMessage = nil } }
+                )
+            ) {
+                Button("OK") {}
             }
         }
     }

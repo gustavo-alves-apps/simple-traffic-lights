@@ -1017,6 +1017,9 @@
         }
       }
     },
+    "OK" : {
+
+    },
     "Play" : {
       "localizations" : {
         "ar" : {
@@ -1825,6 +1828,12 @@
         }
       }
     },
+    "Simple Traffic Lights" : {
+
+    },
+    "Support" : {
+
+    },
     "Tap" : {
       "localizations" : {
         "ar" : {
@@ -2230,6 +2239,7 @@
       }
     },
     "Traffic Light" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {

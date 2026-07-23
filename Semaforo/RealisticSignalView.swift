@@ -3,41 +3,40 @@ import SwiftUI
 struct RealisticSignalView: View {
     let signal: Signal
 
-    private let aspectRatio: CGFloat = 0.42
-    private let earRatio: CGFloat = 0.34
+    private let aspectRatio: CGFloat = 0.35
+    private let earRatio: CGFloat = 0.16
 
     var body: some View {
         GeometryReader { proxy in
-            let maxWidthWithEars = proxy.size.width * 0.9
-            let housingWidthFromWidth = maxWidthWithEars / (1 + 2 * earRatio)
-            let maxHeight = proxy.size.height * 0.8
-            let housingHeight = min(maxHeight, housingWidthFromWidth / aspectRatio)
-            let housingWidth = housingHeight * aspectRatio
-            let poleHeight = max(proxy.size.height * 0.86 - housingHeight - housingWidth * 0.14, 0)
+            let maxWidthWithEars = proxy.size.width * 0.94
+            let totalHeightBudget = proxy.size.height * 0.82
 
-            VStack(spacing: 0) {
-                topCap(width: housingWidth)
-                housing(width: housingWidth, height: housingHeight)
-                pole(width: housingWidth * 0.16, height: poleHeight)
-            }
-            .frame(width: proxy.size.width, height: proxy.size.height)
+            let housingHeightFromWidth = (maxWidthWithEars / (1 + 2 * earRatio)) / aspectRatio
+            let housingHeight = min(housingHeightFromWidth, totalHeightBudget)
+            let housingWidth = housingHeight * aspectRatio
+
+            housing(width: housingWidth, height: housingHeight)
+                .frame(width: proxy.size.width, height: proxy.size.height, alignment: .center)
         }
     }
 
     private var housingGradient: LinearGradient {
         LinearGradient(
-            colors: [Color(white: 0.24), Color(white: 0.1), Color(white: 0.04)],
+            colors: [Color(white: 0.17), Color(white: 0.06), Color(white: 0.025)],
             startPoint: .top,
             endPoint: .bottom
         )
     }
 
-    private func topCap(width: CGFloat) -> some View {
-        Capsule()
+    private var edgeStroke: Color {
+        Color.white.opacity(0.16)
+    }
+
+    private func metalSurface<S: Shape>(_ shape: S) -> some View {
+        shape
             .fill(housingGradient)
-            .overlay(Capsule().stroke(Color.black.opacity(0.85), lineWidth: 1))
-            .frame(width: width * 0.32, height: width * 0.16)
-            .padding(.bottom, -width * 0.04)
+            .overlay(BrushedMetalTexture().clipShape(shape))
+            .overlay(shape.stroke(edgeStroke, lineWidth: 1))
     }
 
     private func housing(width: CGFloat, height: CGFloat) -> some View {
@@ -47,6 +46,8 @@ struct RealisticSignalView: View {
         let spacing = (height - lensDiameter * slots) / (slots + 1)
         let earWidth = width * earRatio
         let earHeight = lensDiameter * 0.86
+        let seam1Y = 1.5 * spacing + lensDiameter
+        let seam2Y = 2.5 * spacing + 2 * lensDiameter
 
         return ZStack {
             VStack(spacing: spacing) {
@@ -63,12 +64,9 @@ struct RealisticSignalView: View {
             .padding(.vertical, spacing)
             .frame(width: width + earWidth * 2, height: height)
 
-            RoundedRectangle(cornerRadius: cornerRadius)
-                .fill(housingGradient)
-                .overlay(
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                        .stroke(Color.black.opacity(0.85), lineWidth: max(width * 0.012, 1))
-                )
+            metalSurface(RoundedRectangle(cornerRadius: cornerRadius))
+                .overlay(seam(width: width * 0.92).offset(y: seam1Y - height / 2))
+                .overlay(seam(width: width * 0.92).offset(y: seam2Y - height / 2))
                 .overlay(
                     VStack(spacing: spacing) {
                         lens(.red, diameter: lensDiameter)
@@ -77,27 +75,76 @@ struct RealisticSignalView: View {
                     }
                     .padding(.vertical, spacing)
                 )
-                .overlay(screws(cornerRadius: cornerRadius))
+                .overlay(
+                    joinScrews(width: width, height: height, spacing: spacing, seam1Y: seam1Y, seam2Y: seam2Y)
+                )
                 .frame(width: width, height: height)
         }
         .shadow(color: .black.opacity(0.6), radius: width * 0.12, y: width * 0.08)
     }
 
+    private func seam(width: CGFloat) -> some View {
+        VStack(spacing: 0) {
+            Rectangle().fill(Color.black.opacity(0.55)).frame(width: width, height: 1.5)
+            Rectangle().fill(Color.white.opacity(0.08)).frame(width: width, height: 1)
+        }
+    }
+
+    private func joinScrews(width: CGFloat, height: CGFloat, spacing: CGFloat, seam1Y: CGFloat, seam2Y: CGFloat) -> some View {
+        let size = width * 0.05
+        let insetX = width * 0.16
+
+        return ZStack {
+            screw(size: size, rotation: 12).position(x: insetX, y: spacing * 0.5)
+            screw(size: size, rotation: 100).position(x: width - insetX, y: spacing * 0.5)
+
+            screw(size: size, rotation: 48).position(x: insetX, y: seam1Y)
+            screw(size: size, rotation: 140).position(x: width - insetX, y: seam1Y)
+
+            screw(size: size, rotation: 75).position(x: insetX, y: seam2Y)
+            screw(size: size, rotation: 20).position(x: width - insetX, y: seam2Y)
+
+            screw(size: size, rotation: 60).position(x: insetX, y: height - spacing * 0.5)
+            screw(size: size, rotation: 155).position(x: width - insetX, y: height - spacing * 0.5)
+        }
+        .frame(width: width, height: height)
+    }
+
+    private func screw(size: CGFloat, rotation: Double) -> some View {
+        ZStack {
+            Circle()
+                .fill(
+                    RadialGradient(
+                        colors: [Color(white: 0.7), Color(white: 0.18)],
+                        center: .topLeading,
+                        startRadius: 0,
+                        endRadius: size
+                    )
+                )
+                .overlay(Circle().stroke(Color.black.opacity(0.6), lineWidth: max(size * 0.06, 0.5)))
+
+            Rectangle()
+                .fill(Color.black.opacity(0.55))
+                .frame(width: size * 0.68, height: max(size * 0.12, 0.6))
+                .rotationEffect(.degrees(rotation))
+        }
+        .frame(width: size, height: size)
+    }
+
     private func ear(width: CGFloat, height: CGFloat) -> some View {
-        Ellipse()
-            .fill(housingGradient)
-            .frame(width: width * 2, height: height)
-            .overlay(
-                Ellipse()
-                    .stroke(Color.black.opacity(0.7), lineWidth: 1)
-                    .frame(width: width * 2, height: height)
-            )
-            .mask(
-                HStack(spacing: 0) {
-                    Rectangle().frame(width: width)
-                    Color.clear.frame(width: width)
-                }
-            )
+        ZStack {
+            metalSurface(Ellipse())
+
+            screw(size: width * 0.22, rotation: 30)
+                .position(x: width, y: height / 2)
+        }
+        .frame(width: width * 2, height: height)
+        .mask(
+            HStack(spacing: 0) {
+                Rectangle().frame(width: width)
+                Color.clear.frame(width: width)
+            }
+        )
     }
 
     @ViewBuilder
@@ -109,9 +156,9 @@ struct RealisticSignalView: View {
             if isOn {
                 Circle()
                     .fill(base)
-                    .frame(width: diameter * 2.3, height: diameter * 2.3)
-                    .blur(radius: diameter * 0.45)
-                    .opacity(0.55)
+                    .frame(width: diameter * 1.5, height: diameter * 1.5)
+                    .blur(radius: diameter * 0.25)
+                    .opacity(0.3)
             }
 
             Circle()
@@ -173,39 +220,27 @@ struct RealisticSignalView: View {
             .offset(y: -diameter * 0.02)
     }
 
-    private func screws(cornerRadius: CGFloat) -> some View {
-        GeometryReader { proxy in
-            let inset = cornerRadius * 0.8
-            let size = cornerRadius * 0.3
-            ForEach(0..<4, id: \.self) { index in
-                Circle()
-                    .fill(
-                        RadialGradient(
-                            colors: [Color(white: 0.6), Color(white: 0.15)],
-                            center: .topLeading,
-                            startRadius: 0,
-                            endRadius: size
-                        )
-                    )
-                    .frame(width: size, height: size)
-                    .position(
-                        x: index % 2 == 0 ? inset : proxy.size.width - inset,
-                        y: index < 2 ? inset : proxy.size.height - inset
-                    )
+}
+
+private struct BrushedMetalTexture: View {
+    var body: some View {
+        Canvas { context, size in
+            let spacing: CGFloat = 1.8
+            let diagonal = size.width + size.height
+            var offset: CGFloat = -size.height
+            var index = 0
+
+            while offset < diagonal {
+                var path = Path()
+                path.move(to: CGPoint(x: offset, y: 0))
+                path.addLine(to: CGPoint(x: offset + size.height, y: size.height))
+                let opacity: Double = index.isMultiple(of: 2) ? 0.12 : 0.05
+                context.stroke(path, with: .color(.white.opacity(opacity)), lineWidth: 1)
+                offset += spacing
+                index += 1
             }
         }
-    }
-
-    private func pole(width: CGFloat, height: CGFloat) -> some View {
-        Rectangle()
-            .fill(
-                LinearGradient(
-                    colors: [Color(white: 0.4), Color(white: 0.15), Color(white: 0.3)],
-                    startPoint: .leading,
-                    endPoint: .trailing
-                )
-            )
-            .frame(width: max(width, 5), height: max(height, 0))
+        .blendMode(.plusLighter)
     }
 }
 

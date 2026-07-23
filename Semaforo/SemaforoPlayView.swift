@@ -49,7 +49,7 @@ struct SemaforoPlayView: View {
                 } label: {
                     Image(systemName: "gearshape")
                         .font(.title3)
-                        .foregroundStyle(.white.opacity(0.6))
+                        .foregroundStyle(settings.layout == .fullScreen ? .black.opacity(0.6) : .white.opacity(0.6))
                         .padding(10)
                 }
                 .padding(.top, 16)
@@ -67,10 +67,11 @@ struct SemaforoPlayView: View {
                 }
             }
         }
+        .ignoresSafeArea()
         .statusBarHidden()
         .onAppear {
             startTimerIfNeeded()
-            OrientationManager.orientationLock = .allButUpsideDown
+            OrientationManager.orientationLock = orientationMask
             UIApplication.shared.isIdleTimerDisabled = true
         }
         .onDisappear {
@@ -82,6 +83,13 @@ struct SemaforoPlayView: View {
             stopTimer()
             startTimerIfNeeded()
         }
+        .onChange(of: settings.layout) { _, _ in
+            OrientationManager.orientationLock = orientationMask
+        }
+    }
+
+    private var orientationMask: UIInterfaceOrientationMask {
+        settings.layout == .realistic ? .portrait : .allButUpsideDown
     }
 
     private var countdownColor: Color {
