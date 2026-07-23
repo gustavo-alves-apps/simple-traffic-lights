@@ -29,6 +29,7 @@
 		DE1F955E420B89744E1CA060 /* RealisticSignalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealisticSignalView.swift; sourceTree = "<group>"; };
 		27E2FE1CDE540F080FC48BAE /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		B6E5341C981DF8A7E1416272 /* TipStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipStore.swift; sourceTree = "<group>"; };
+		BBE7624A0FEA28BF4DDF7158 /* Products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Products.storekit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +55,7 @@
 				DE1F955E420B89744E1CA060 /* RealisticSignalView.swift */,
 				27E2FE1CDE540F080FC48BAE /* Localizable.xcstrings */,
 				B6E5341C981DF8A7E1416272 /* TipStore.swift */,
+				BBE7624A0FEA28BF4DDF7158 /* Products.storekit */,
 			);
 			path = Semaforo;
 			sourceTree = "<group>";

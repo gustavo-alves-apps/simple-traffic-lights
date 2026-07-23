@@ -1,0 +1,65 @@
+{
+  "identifier" : "6A1E1F2A-0001-4A11-9E11-000000000001",
+  "nonRenewingSubscriptions" : [],
+  "products" : [
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "6A1E1F2A0002",
+      "localizations" : [
+        {
+          "description" : "A small tip to support the app.",
+          "displayName" : "Small Coffee",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.gustavo.trafficlight.tip1",
+      "referenceName" : "Tip Small",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "2.99",
+      "familyShareable" : false,
+      "internalID" : "6A1E1F2A0003",
+      "localizations" : [
+        {
+          "description" : "A medium tip to support the app.",
+          "displayName" : "Medium Coffee",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.gustavo.trafficlight.tip2",
+      "referenceName" : "Tip Medium",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
+      "internalID" : "6A1E1F2A0004",
+      "localizations" : [
+        {
+          "description" : "A large tip to support the app.",
+          "displayName" : "Large Coffee",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.gustavo.trafficlight.tip3",
+      "referenceName" : "Tip Large",
+      "type" : "Consumable"
+    }
+  ],
+  "settings" : {
+    "_askToBuyEnabled" : false,
+    "_billingIssuesEnabled" : false,
+    "_disableDialogView" : false,
+    "_failTransactionsEnabled" : false,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : []
+  },
+  "subscriptionGroups" : [],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}
