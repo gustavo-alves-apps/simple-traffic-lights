@@ -1,7 +1,7 @@
 import SwiftUI
 
 enum Signal: CaseIterable {
-    case red, green, yellow
+    case red, yellow, green
 
     var color: Color {
         switch self {
@@ -11,12 +11,19 @@ enum Signal: CaseIterable {
         }
     }
 
-    var next: Signal {
-        switch self {
-        case .red: return .green
-        case .green: return .yellow
-        case .yellow: return .red
+    /// Top-to-bottom / list order used in Settings and the realistic housing.
+    static let displayOrder: [Signal] = [.red, .yellow, .green]
+
+    /// Order signals actually light up in: red -> green -> yellow -> red.
+    private static let cycleOrder: [Signal] = [.red, .green, .yellow]
+
+    func next(enabled: (Signal) -> Bool) -> Signal {
+        guard let index = Signal.cycleOrder.firstIndex(of: self) else { return self }
+        for step in 1...Signal.cycleOrder.count {
+            let candidate = Signal.cycleOrder[(index + step) % Signal.cycleOrder.count]
+            if enabled(candidate) { return candidate }
         }
+        return self
     }
 }
 
@@ -70,6 +77,9 @@ struct SemaforoPlayView: View {
         .ignoresSafeArea()
         .statusBarHidden()
         .onAppear {
+            if !settings.isEnabled(signal) {
+                signal = Signal.displayOrder.first(where: settings.isEnabled) ?? .red
+            }
             startTimerIfNeeded()
             OrientationManager.orientationLock = orientationMask
             UIApplication.shared.isIdleTimerDisabled = true
@@ -113,7 +123,7 @@ struct SemaforoPlayView: View {
                     .position(x: proxy.size.width / 2, y: proxy.size.height / 2)
             }
         case .realistic:
-            RealisticSignalView(signal: signal)
+            RealisticSignalView(signal: signal, signals: Signal.displayOrder.filter(settings.isEnabled))
         }
     }
 
@@ -136,7 +146,7 @@ struct SemaforoPlayView: View {
     }
 
     private func advance() {
-        signal = signal.next
+        signal = signal.next(enabled: settings.isEnabled)
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
     }
 }

@@ -8,28 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		24608B4E7819F2F09FAB8196 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A948DF93C598414A2B0D9B /* ContentView.swift */; };
+		37F24EE4C1C9A02969DD8A6D /* TipStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E5341C981DF8A7E1416272 /* TipStore.swift */; };
+		41A42B155F9179C1DC56AE56 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 27E2FE1CDE540F080FC48BAE /* Localizable.xcstrings */; };
+		43159C1ED03080A4902C5F0D /* SemaforoPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94982F9AF21C879B18C60B84 /* SemaforoPlayView.swift */; };
+		61C3C1A251C8F181506094F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E2190194465B8AAA1E38FEE /* Assets.xcassets */; };
+		6C823C924977560A70585F23 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EFE93F0DA0FD9F208604C7 /* AppDelegate.swift */; };
 		B80DE4E526C36B7DF29CA108 /* SemaforoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BF64C751047A31DC66576D /* SemaforoApp.swift */; };
 		C40B8115C908474FD5B0D827 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E842C141907D3F5636FE25 /* SettingsView.swift */; };
-		43159C1ED03080A4902C5F0D /* SemaforoPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94982F9AF21C879B18C60B84 /* SemaforoPlayView.swift */; };
-		6C823C924977560A70585F23 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EFE93F0DA0FD9F208604C7 /* AppDelegate.swift */; };
-		61C3C1A251C8F181506094F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E2190194465B8AAA1E38FEE /* Assets.xcassets */; };
 		CF184D91EC113DCCAD562270 /* RealisticSignalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1F955E420B89744E1CA060 /* RealisticSignalView.swift */; };
-		41A42B155F9179C1DC56AE56 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 27E2FE1CDE540F080FC48BAE /* Localizable.xcstrings */; };
-		37F24EE4C1C9A02969DD8A6D /* TipStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E5341C981DF8A7E1416272 /* TipStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		01F92EBFFC7B267D32D557E8 /* Semaforo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Semaforo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		27A948DF93C598414A2B0D9B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		F7BF64C751047A31DC66576D /* SemaforoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemaforoApp.swift; sourceTree = "<group>"; };
 		19E842C141907D3F5636FE25 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		94982F9AF21C879B18C60B84 /* SemaforoPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemaforoPlayView.swift; sourceTree = "<group>"; };
-		A9EFE93F0DA0FD9F208604C7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9E2190194465B8AAA1E38FEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DE1F955E420B89744E1CA060 /* RealisticSignalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealisticSignalView.swift; sourceTree = "<group>"; };
+		27A948DF93C598414A2B0D9B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		27E2FE1CDE540F080FC48BAE /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		94982F9AF21C879B18C60B84 /* SemaforoPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemaforoPlayView.swift; sourceTree = "<group>"; };
+		9E2190194465B8AAA1E38FEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A9EFE93F0DA0FD9F208604C7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B6E5341C981DF8A7E1416272 /* TipStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipStore.swift; sourceTree = "<group>"; };
 		BBE7624A0FEA28BF4DDF7158 /* Products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Products.storekit; sourceTree = "<group>"; };
+		DE1F955E420B89744E1CA060 /* RealisticSignalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealisticSignalView.swift; sourceTree = "<group>"; };
+		F7BF64C751047A31DC66576D /* SemaforoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemaforoApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

@@ -21,12 +21,31 @@ final class SettingsStore: ObservableObject {
     @Published var redDuration: Double = 5
     @Published var greenDuration: Double = 5
     @Published var yellowDuration: Double = 5
+    @Published var redEnabled: Bool = true
+    @Published var yellowEnabled: Bool = true
+    @Published var greenEnabled: Bool = true
 
     func duration(for signal: Signal) -> Double {
         switch signal {
         case .red: return redDuration
         case .green: return greenDuration
         case .yellow: return yellowDuration
+        }
+    }
+
+    func isEnabled(_ signal: Signal) -> Bool {
+        switch signal {
+        case .red: return redEnabled
+        case .yellow: return yellowEnabled
+        case .green: return greenEnabled
+        }
+    }
+
+    func setEnabled(_ value: Bool, for signal: Signal) {
+        switch signal {
+        case .red: redEnabled = value
+        case .yellow: yellowEnabled = value
+        case .green: greenEnabled = value
         }
     }
 }
@@ -36,9 +55,18 @@ struct SettingsView: View {
     @Binding var isPlaying: Bool
     @StateObject private var tipStore = TipStore()
 
+    // Toggle to false for App Store marketing screenshots (hides the tip jar).
+    private let showSupportSection = true
+
     var body: some View {
         NavigationStack {
             Form {
+                Section("Colors") {
+                    colorToggleRow(title: "Red", signal: .red)
+                    colorToggleRow(title: "Yellow", signal: .yellow)
+                    colorToggleRow(title: "Green", signal: .green)
+                }
+
                 Section("Mode") {
                     Picker("Mode", selection: $settings.timerEnabled) {
                         Text("Tap").tag(false)
@@ -47,9 +75,15 @@ struct SettingsView: View {
                     .pickerStyle(.segmented)
 
                     if settings.timerEnabled {
-                        durationRow(title: "Red", value: $settings.redDuration)
-                        durationRow(title: "Green", value: $settings.greenDuration)
-                        durationRow(title: "Yellow", value: $settings.yellowDuration)
+                        if settings.redEnabled {
+                            durationRow(title: "Red", value: $settings.redDuration)
+                        }
+                        if settings.yellowEnabled {
+                            durationRow(title: "Yellow", value: $settings.yellowDuration)
+                        }
+                        if settings.greenEnabled {
+                            durationRow(title: "Green", value: $settings.greenDuration)
+                        }
                         Toggle("Show countdown", isOn: $settings.showCountdown)
                     }
                 }
@@ -63,16 +97,18 @@ struct SettingsView: View {
                     .pickerStyle(.segmented)
                 }
 
-                Section("Support") {
-                    ForEach(tipStore.products) { product in
-                        Button {
-                            Task { await tipStore.purchase(product) }
-                        } label: {
-                            HStack {
-                                Text(product.displayName)
-                                Spacer()
-                                Text(product.displayPrice)
-                                    .foregroundStyle(.secondary)
+                if showSupportSection {
+                    Section("Buy me a coffee") {
+                        ForEach(tipStore.products) { product in
+                            Button {
+                                Task { await tipStore.purchase(product) }
+                            } label: {
+                                HStack {
+                                    Text(product.displayName)
+                                    Spacer()
+                                    Text(product.displayPrice)
+                                        .foregroundStyle(.secondary)
+                                }
                             }
                         }
                     }
@@ -84,6 +120,7 @@ struct SettingsView: View {
                     isPlaying = true
                 } label: {
                     Text("Play")
+                        .font(.system(size: 18, weight: .semibold))
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
@@ -103,6 +140,25 @@ struct SettingsView: View {
             ) {
                 Button("OK") {}
             }
+        }
+    }
+
+    @ViewBuilder
+    private func colorToggleRow(title: LocalizedStringKey, signal: Signal) -> some View {
+        Toggle(isOn: Binding(
+            get: { settings.isEnabled(signal) },
+            set: { newValue in
+                guard !newValue else {
+                    settings.setEnabled(true, for: signal)
+                    return
+                }
+                let othersEnabled = Signal.allCases.contains { $0 != signal && settings.isEnabled($0) }
+                if othersEnabled {
+                    settings.setEnabled(false, for: signal)
+                }
+            }
+        )) {
+            Text(title)
         }
     }
 

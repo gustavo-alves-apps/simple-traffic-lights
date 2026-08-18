@@ -7,6 +7,9 @@
     "%llds" : {
 
     },
+    "Buy me a coffee" : {
+
+    },
     "Circle" : {
       "localizations" : {
         "ar" : {
@@ -208,6 +211,9 @@
           }
         }
       }
+    },
+    "Colors" : {
+
     },
     "Full screen" : {
       "localizations" : {
@@ -1829,9 +1835,6 @@
       }
     },
     "Simple Traffic Lights" : {
-
-    },
-    "Support" : {
 
     },
     "Tap" : {

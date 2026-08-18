@@ -2,9 +2,16 @@ import SwiftUI
 
 struct RealisticSignalView: View {
     let signal: Signal
+    let signals: [Signal]
 
-    private let aspectRatio: CGFloat = 0.35
+    private let lensRatio: CGFloat = 0.72
+    private let spacingRatio: CGFloat = 0.1743
     private let earRatio: CGFloat = 0.16
+
+    private var aspectRatio: CGFloat {
+        let slots = CGFloat(signals.count)
+        return 1 / (slots * lensRatio + (slots + 1) * spacingRatio)
+    }
 
     var body: some View {
         GeometryReader { proxy in
@@ -41,17 +48,18 @@ struct RealisticSignalView: View {
 
     private func housing(width: CGFloat, height: CGFloat) -> some View {
         let cornerRadius = width * 0.14
-        let lensDiameter = width * 0.72
-        let slots: CGFloat = 3
+        let lensDiameter = width * lensRatio
+        let slots = CGFloat(signals.count)
         let spacing = (height - lensDiameter * slots) / (slots + 1)
         let earWidth = width * earRatio
         let earHeight = lensDiameter * 0.86
-        let seam1Y = 1.5 * spacing + lensDiameter
-        let seam2Y = 2.5 * spacing + 2 * lensDiameter
+        let seamYs: [CGFloat] = (1..<signals.count).map { i in
+            (CGFloat(i) + 0.5) * spacing + CGFloat(i) * lensDiameter
+        }
 
         return ZStack {
             VStack(spacing: spacing) {
-                ForEach(0..<3, id: \.self) { _ in
+                ForEach(0..<signals.count, id: \.self) { _ in
                     HStack(spacing: 0) {
                         ear(width: earWidth, height: earHeight)
                         Spacer(minLength: 0)
@@ -65,18 +73,23 @@ struct RealisticSignalView: View {
             .frame(width: width + earWidth * 2, height: height)
 
             metalSurface(RoundedRectangle(cornerRadius: cornerRadius))
-                .overlay(seam(width: width * 0.92).offset(y: seam1Y - height / 2))
-                .overlay(seam(width: width * 0.92).offset(y: seam2Y - height / 2))
+                .overlay(
+                    ZStack {
+                        ForEach(Array(seamYs.enumerated()), id: \.offset) { _, y in
+                            seam(width: width * 0.92).offset(y: y - height / 2)
+                        }
+                    }
+                )
                 .overlay(
                     VStack(spacing: spacing) {
-                        lens(.red, diameter: lensDiameter)
-                        lens(.yellow, diameter: lensDiameter)
-                        lens(.green, diameter: lensDiameter)
+                        ForEach(signals, id: \.self) { target in
+                            lens(target, diameter: lensDiameter)
+                        }
                     }
                     .padding(.vertical, spacing)
                 )
                 .overlay(
-                    joinScrews(width: width, height: height, spacing: spacing, seam1Y: seam1Y, seam2Y: seam2Y)
+                    joinScrews(width: width, height: height, spacing: spacing, seamYs: seamYs)
                 )
                 .frame(width: width, height: height)
         }
@@ -90,22 +103,19 @@ struct RealisticSignalView: View {
         }
     }
 
-    private func joinScrews(width: CGFloat, height: CGFloat, spacing: CGFloat, seam1Y: CGFloat, seam2Y: CGFloat) -> some View {
+    private func joinScrews(width: CGFloat, height: CGFloat, spacing: CGFloat, seamYs: [CGFloat]) -> some View {
         let size = width * 0.05
         let insetX = width * 0.16
+        let rotations: [Double] = [12, 100, 48, 140, 75, 20, 60, 155]
+        let rowYs = [spacing * 0.5] + seamYs + [height - spacing * 0.5]
 
         return ZStack {
-            screw(size: size, rotation: 12).position(x: insetX, y: spacing * 0.5)
-            screw(size: size, rotation: 100).position(x: width - insetX, y: spacing * 0.5)
-
-            screw(size: size, rotation: 48).position(x: insetX, y: seam1Y)
-            screw(size: size, rotation: 140).position(x: width - insetX, y: seam1Y)
-
-            screw(size: size, rotation: 75).position(x: insetX, y: seam2Y)
-            screw(size: size, rotation: 20).position(x: width - insetX, y: seam2Y)
-
-            screw(size: size, rotation: 60).position(x: insetX, y: height - spacing * 0.5)
-            screw(size: size, rotation: 155).position(x: width - insetX, y: height - spacing * 0.5)
+            ForEach(Array(rowYs.enumerated()), id: \.offset) { row, y in
+                screw(size: size, rotation: rotations[(row * 2) % rotations.count])
+                    .position(x: insetX, y: y)
+                screw(size: size, rotation: rotations[(row * 2 + 1) % rotations.count])
+                    .position(x: width - insetX, y: y)
+            }
         }
         .frame(width: width, height: height)
     }
