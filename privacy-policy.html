@@ -22,7 +22,7 @@
 <body>
 
   <h1>Privacy Policy</h1>
-  <p class="meta">Simple Traffic Lights for iOS &nbsp;·&nbsp; Last updated: July 23, 2026</p>
+  <p class="meta">Simple Traffic Lights for iOS &nbsp;·&nbsp; Last updated: October 3, 2026</p>
 
   <h2>Overview</h2>
   <p>
@@ -31,7 +31,7 @@
   </p>
 
   <h2>Data We Do Not Collect</h2>
-  <p>Simple Traffic Lights does <strong>not</strong> collect, transmit, or share any personal information. Specifically:</p>
+  <p>Simple Traffic Lights does <strong>not</strong> collect or share any personal information, and never sends data to us or to any server. Specifically:</p>
   <ul>
     <li>We do not require or offer any account, sign-in, or profile.</li>
     <li>We do not collect your name, email address, location, or any personal identifiers.</li>
@@ -45,6 +45,24 @@
     your device while you use it. Nothing is written to a server, and nothing is synced anywhere.
   </p>
 
+  <h2>Remote Control and Local Network</h2>
+  <p>
+    The optional remote control feature lets one nearby iPhone or iPad change the traffic light on
+    another. It uses Apple's Multipeer Connectivity framework, which connects the two devices
+    directly over Wi-Fi or Bluetooth. Because of this, iOS asks for permission to access your
+    local network the first time you use it. If you decline, the rest of the app works normally.
+  </p>
+  <ul>
+    <li>The connection is device to device. No internet connection, server, or account is involved.</li>
+    <li>A device only accepts a connection from someone who enters the 4-digit code it shows.</li>
+    <li>The connection is encrypted.</li>
+    <li>The only data exchanged is the current color, which colors are enabled, whether timer mode is on,
+      and commands to change the color. iOS also shares the device's generic name (for example, "iPhone")
+      so the devices can find each other.</li>
+    <li>None of this data is stored, and it is never sent to us or to any third party.</li>
+    <li>Pairing ends when you turn remote control off or close the app.</li>
+  </ul>
+
   <h2>In-App Purchases</h2>
   <p>
     Simple Traffic Lights offers optional, entirely voluntary tips through Apple's In-App Purchase
@@ -56,7 +74,8 @@
   <h2>Third-Party Services</h2>
   <p>
     The app does not integrate with any third-party SDKs, analytics tools, or advertising networks,
-    aside from Apple's native StoreKit framework used for the optional tips above.
+    aside from Apple's native StoreKit framework used for the optional tips and Apple's Multipeer
+    Connectivity framework used for remote control, both described above.
   </p>
 
   <h2>Children's Privacy</h2>
