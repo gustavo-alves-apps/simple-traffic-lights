@@ -1,9 +1,9 @@
 import SwiftUI
 
 enum Layout: CaseIterable, Hashable {
+    case realistic
     case fullScreen
     case circle
-    case realistic
 
     var title: LocalizedStringKey {
         switch self {
@@ -17,7 +17,7 @@ enum Layout: CaseIterable, Hashable {
 final class SettingsStore: ObservableObject {
     @Published var timerEnabled: Bool = false
     @Published var showCountdown: Bool = false
-    @Published var layout: Layout = .fullScreen
+    @Published var layout: Layout = .realistic
     @Published var redDuration: Double = 5
     @Published var greenDuration: Double = 5
     @Published var yellowDuration: Double = 5
@@ -52,8 +52,10 @@ final class SettingsStore: ObservableObject {
 
 struct SettingsView: View {
     @ObservedObject var settings: SettingsStore
+    @ObservedObject var remote: RemoteSession
     @Binding var isPlaying: Bool
     @StateObject private var tipStore = TipStore()
+    @State private var showingRemoteControl = false
 
     // Toggle to false for App Store marketing screenshots (hides the tip jar).
     private let showSupportSection = true
@@ -97,19 +99,51 @@ struct SettingsView: View {
                     .pickerStyle(.segmented)
                 }
 
-                if showSupportSection {
-                    Section("Buy me a coffee") {
-                        ForEach(tipStore.products) { product in
-                            Button {
-                                Task { await tipStore.purchase(product) }
-                            } label: {
-                                HStack {
+                Section {
+                    Toggle("Allow remote control", isOn: Binding(
+                        get: { remote.role == .light },
+                        set: { $0 ? remote.startLight() : remote.stop() }
+                    ))
+
+                    if remote.role == .light {
+                        HStack {
+                            Text("Pairing code")
+                            Spacer()
+                            Text(remote.code)
+                                .font(.title2.monospacedDigit().weight(.semibold))
+                        }
+                        HStack {
+                            Text("Connected devices")
+                            Spacer()
+                            Text("\(remote.connectedControllers)")
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+
+                    Button {
+                        showingRemoteControl = true
+                    } label: {
+                        Label("Control another traffic light", systemImage: "iphone.radiowaves.left.and.right")
+                    }
+                } header: {
+                    Text("Remote control")
+                } footer: {
+                    Text("Both iPhones must be nearby with Wi-Fi or Bluetooth on.")
+                }
+
+                if showSupportSection && !tipStore.products.isEmpty {
+                    Section {
+                        Menu {
+                            ForEach(tipStore.products) { product in
+                                Button {
+                                    Task { await tipStore.purchase(product) }
+                                } label: {
                                     Text(product.displayName)
-                                    Spacer()
                                     Text(product.displayPrice)
-                                        .foregroundStyle(.secondary)
                                 }
                             }
+                        } label: {
+                            Label("Buy me a coffee", systemImage: "cup.and.saucer")
                         }
                     }
                 }
@@ -130,6 +164,9 @@ struct SettingsView: View {
             }
             .task {
                 await tipStore.load()
+            }
+            .sheet(isPresented: $showingRemoteControl) {
+                RemoteControlView(remote: remote)
             }
             .alert(
                 tipStore.alertMessage ?? "",

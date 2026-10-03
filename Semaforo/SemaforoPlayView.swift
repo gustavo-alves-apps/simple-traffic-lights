@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum Signal: CaseIterable {
+enum Signal: String, CaseIterable, Codable {
     case red, yellow, green
 
     var color: Color {
@@ -29,6 +29,7 @@ enum Signal: CaseIterable {
 
 struct SemaforoPlayView: View {
     @ObservedObject var settings: SettingsStore
+    @ObservedObject var remote: RemoteSession
     @Binding var isPlaying: Bool
 
     @State private var signal: Signal = .red
@@ -63,6 +64,23 @@ struct SemaforoPlayView: View {
                 .padding(.trailing, 20)
                 .ignoresSafeArea()
             }
+            .overlay(alignment: .topLeading) {
+                if remote.role == .light {
+                    HStack(spacing: 6) {
+                        Image(systemName: remote.connectedControllers > 0 ? "antenna.radiowaves.left.and.right" : "antenna.radiowaves.left.and.right.slash")
+                        if remote.connectedControllers == 0 {
+                            Text(remote.code)
+                                .monospacedDigit()
+                        }
+                    }
+                    .font(.headline)
+                    .foregroundStyle(settings.layout == .fullScreen ? .black.opacity(0.6) : .white.opacity(0.6))
+                    .padding(10)
+                    .padding(.top, 16)
+                    .padding(.leading, 20)
+                    .ignoresSafeArea()
+                }
+            }
             .overlay(alignment: isLandscape ? .bottomTrailing : .bottom) {
                 if settings.timerEnabled && settings.showCountdown {
                     Text("\(secondsRemaining)")
@@ -81,6 +99,7 @@ struct SemaforoPlayView: View {
                 signal = Signal.displayOrder.first(where: settings.isEnabled) ?? .red
             }
             startTimerIfNeeded()
+            publishState()
             OrientationManager.orientationLock = orientationMask
             UIApplication.shared.isIdleTimerDisabled = true
         }
@@ -92,10 +111,36 @@ struct SemaforoPlayView: View {
         .onChange(of: settings.timerEnabled) { _, _ in
             stopTimer()
             startTimerIfNeeded()
+            publishState()
         }
         .onChange(of: settings.layout) { _, _ in
             OrientationManager.orientationLock = orientationMask
         }
+        .onChange(of: signal) { _, _ in
+            publishState()
+        }
+        .onReceive(remote.commands) { command in
+            // Same rule as tapping: in timer mode the colors change on their own.
+            guard !settings.timerEnabled else { return }
+            switch command {
+            case .next:
+                advance()
+            case .set(let target) where settings.isEnabled(target) && target != signal:
+                signal = target
+                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+            default:
+                break
+            }
+        }
+    }
+
+    private func publishState() {
+        guard remote.role == .light else { return }
+        remote.publish(
+            current: signal,
+            enabled: Signal.displayOrder.filter(settings.isEnabled),
+            timerEnabled: settings.timerEnabled
+        )
     }
 
     private var orientationMask: UIInterfaceOrientationMask {

@@ -16,6 +16,9 @@
 		B80DE4E526C36B7DF29CA108 /* SemaforoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BF64C751047A31DC66576D /* SemaforoApp.swift */; };
 		C40B8115C908474FD5B0D827 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E842C141907D3F5636FE25 /* SettingsView.swift */; };
 		CF184D91EC113DCCAD562270 /* RealisticSignalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1F955E420B89744E1CA060 /* RealisticSignalView.swift */; };
+		A1B2C3D4E5F60718293A4B01 /* RemoteSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B02 /* RemoteSession.swift */; };
+		A1B2C3D4E5F60718293A4B03 /* RemoteControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B04 /* RemoteControlView.swift */; };
+		A1B2C3D4E5F60718293A4B06 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B07 /* InfoPlist.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,10 @@
 		BBE7624A0FEA28BF4DDF7158 /* Products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Products.storekit; sourceTree = "<group>"; };
 		DE1F955E420B89744E1CA060 /* RealisticSignalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealisticSignalView.swift; sourceTree = "<group>"; };
 		F7BF64C751047A31DC66576D /* SemaforoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemaforoApp.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B02 /* RemoteSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteSession.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B04 /* RemoteControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteControlView.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B07 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +63,10 @@
 				27E2FE1CDE540F080FC48BAE /* Localizable.xcstrings */,
 				B6E5341C981DF8A7E1416272 /* TipStore.swift */,
 				BBE7624A0FEA28BF4DDF7158 /* Products.storekit */,
+				A1B2C3D4E5F60718293A4B02 /* RemoteSession.swift */,
+				A1B2C3D4E5F60718293A4B04 /* RemoteControlView.swift */,
+				A1B2C3D4E5F60718293A4B05 /* Info.plist */,
+				A1B2C3D4E5F60718293A4B07 /* InfoPlist.xcstrings */,
 			);
 			path = Semaforo;
 			sourceTree = "<group>";
@@ -169,6 +180,7 @@
 			files = (
 				61C3C1A251C8F181506094F5 /* Assets.xcassets in Resources */,
 				41A42B155F9179C1DC56AE56 /* Localizable.xcstrings in Resources */,
+				A1B2C3D4E5F60718293A4B06 /* InfoPlist.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,6 +198,8 @@
 				6C823C924977560A70585F23 /* AppDelegate.swift in Sources */,
 				CF184D91EC113DCCAD562270 /* RealisticSignalView.swift in Sources */,
 				37F24EE4C1C9A02969DD8A6D /* TipStore.swift in Sources */,
+				A1B2C3D4E5F60718293A4B01 /* RemoteSession.swift in Sources */,
+				A1B2C3D4E5F60718293A4B03 /* RemoteControlView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,6 +215,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C5F3V39XFL;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Semaforo/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Traffic Lights";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -280,6 +295,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C5F3V39XFL;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Semaforo/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Traffic Lights";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

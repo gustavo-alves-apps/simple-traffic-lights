@@ -1,0 +1,239 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "CFBundleDisplayName" : {
+      "comment" : "Bundle display name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Traffic Lights"
+          }
+        }
+      }
+    },
+    "CFBundleName" : {
+      "comment" : "Bundle name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Semaforo"
+          }
+        }
+      }
+    },
+    "NSLocalNetworkUsageDescription" : {
+      "comment" : "Privacy - Local Network Usage Description",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يُستخدم للإقران مع جهاز iPhone قريب ليتمكن من تغيير إشارة المرور عن بُعد."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S’utilitza per emparellar-se amb un iPhone proper perquè pugui canviar el semàfor a distància."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Slouží ke spárování s iPhonem v okolí, aby mohl semafor ovládat na dálku."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bruges til at parre med en iPhone i nærheden, så den kan skifte trafiklyset på afstand."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wird verwendet, um ein iPhone in der Nähe zu koppeln, damit es die Ampel aus der Ferne umschalten kann."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Χρησιμοποιείται για σύζευξη με ένα κοντινό iPhone, ώστε να μπορεί να αλλάζει το φανάρι από απόσταση."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Used to pair with a nearby iPhone so it can change the traffic light remotely."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se usa para vincularse con un iPhone cercano y que pueda cambiar el semáforo a distancia."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Käytetään lähellä olevan iPhonen yhdistämiseen, jotta se voi vaihtaa liikennevaloa etänä."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilisé pour s’associer à un iPhone à proximité afin qu’il puisse changer le feu à distance."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "משמש לצימוד עם iPhone קרוב כדי שיוכל להחליף את הרמזור מרחוק."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पास के iPhone से पेयर करने के लिए उपयोग किया जाता है ताकि वह ट्रैफ़िक लाइट को दूर से बदल सके।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Koristi se za uparivanje s obližnjim iPhoneom kako bi mogao daljinski mijenjati semafor."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egy közeli iPhone-nal való párosításhoz használatos, hogy az távolról válthassa a lámpát."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Digunakan untuk memasangkan dengan iPhone di dekat Anda agar dapat mengganti lampu lalu lintas dari jarak jauh."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usato per abbinarsi a un iPhone vicino in modo che possa cambiare il semaforo a distanza."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "近くのiPhoneとペアリングして、信号機をリモートで切り替えられるようにするために使用します。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "근처의 iPhone과 페어링하여 신호등을 원격으로 바꿀 수 있도록 하는 데 사용됩니다."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Digunakan untuk berganding dengan iPhone berdekatan supaya ia boleh menukar lampu isyarat dari jauh."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brukes til å koble sammen med en iPhone i nærheten, slik at den kan bytte trafikklyset eksternt."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wordt gebruikt om te koppelen met een iPhone in de buurt, zodat die het verkeerslicht op afstand kan wisselen."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Służy do parowania z pobliskim iPhone’em, aby mógł zdalnie zmieniać sygnalizator."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usado para parear com um iPhone próximo para que ele possa mudar o semáforo remotamente."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilizado para emparelhar com um iPhone próximo para que este possa mudar o semáforo remotamente."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Folosit pentru asocierea cu un iPhone din apropiere, ca acesta să poată schimba semaforul de la distanță."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Используется для сопряжения с iPhone поблизости, чтобы он мог переключать светофор удалённо."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Používa sa na spárovanie s iPhonom v okolí, aby mohol semafor ovládať na diaľku."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Används för att parkoppla med en iPhone i närheten så att den kan byta trafikljuset på distans."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ใช้เพื่อจับคู่กับ iPhone ที่อยู่ใกล้เคียง เพื่อให้เปลี่ยนไฟจราจรจากระยะไกลได้"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yakındaki bir iPhone ile eşleşmek ve trafik ışığını uzaktan değiştirebilmesini sağlamak için kullanılır."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Використовується для створення пари з iPhone поблизу, щоб він міг дистанційно перемикати світлофор."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dùng để ghép đôi với iPhone ở gần để máy đó có thể đổi đèn giao thông từ xa."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用于与附近的 iPhone 配对，使其能够远程切换红绿灯。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用於與附近的 iPhone 配對，讓它能遠端切換紅綠燈。"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
